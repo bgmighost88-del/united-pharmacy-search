@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بحث عن بيانات مريض</title>
+    <title>United Pharmacy - بحث عن بيانات مريض</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +12,7 @@
         body {
             font-family: 'Cairo', sans-serif;
             transition: background-color 0.5s ease;
+            /* تدرج لوني جديد */
             background: linear-gradient(135deg, #3A5795 0%, #0D162B 100%);
         }
         .loader {
@@ -32,7 +33,10 @@
 <body class="flex items-center justify-center min-h-screen">
 
     <div id="loginScreen" class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-sm transform transition duration-500 scale-100">
-        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">تسجيل الدخول</h2>
+        
+        <h1 class="text-3xl font-extrabold mb-2 text-center text-indigo-700">United Pharmacy</h1>
+        <h2 class="text-xl font-bold mb-4 text-center text-gray-800">الرجاء إدخال بياناتك للمتابعة</h2>
+        
         <form id="loginForm">
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700 mb-1">اسم المستخدم</label>
@@ -48,7 +52,10 @@
     </div>
 
     <div id="searchScreen" class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-lg hidden transform transition duration-500 scale-0">
-        <h2 class="text-3xl font-extrabold mb-6 text-center text-gray-800 border-b pb-2">البحث عن مريض</h2>
+        
+        <img src="**ضع هنا رابط صورة اللوجو (URL) الخاص بـ United Pharmacy**" alt="United Pharmacy Logo" class="h-16 mx-auto mb-4"> 
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">ادخل رقم الهوية لعرض بيانات المريض</h2>
+        
         <form id="searchForm" class="mb-6">
             <div class="flex space-x-3 space-x-reverse">
                 <input type="text" id="patientId" placeholder="أدخل رقم الهوية أو رقم الهاتف" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500" required>
@@ -68,6 +75,11 @@
                 </div>
             </div>
         </div>
+        
+        <p class="text-xs text-gray-400 text-center mt-6 border-t pt-2">
+            Created by: <span class="font-medium text-gray-600">Dr.Abdelrahman Baiomy</span>
+        </p>
+
     </div>
 
     <script>
@@ -75,11 +87,11 @@
         // الروابط الجديدة للخدمات
         // =======================================================
         // 1. رابط المصادقة (Google Apps Script الأصلي)
-        // **يجب استبدال هذا برابط Google Apps Script الخاص بك**
-        const AUTH_URL = 'https://script.google.com/macros/s/AKfycbxz9VsdF4buz_DFJo_nelzadvIaHUHioJlG8rx3QKFeMDlF6wXE7vqTtZnvP6BauyQU/exec'; 
+        // **يجب استبدال النص بالرابط الفعال الخاص بك للمصادقة**
+        const AUTH_URL = 'https://script.google.com/macros/s/AKfycb.../exec'; 
         
         // 2. رابط البحث عن البيانات (خادم Vercel الجديد)
-        // هذا الرابط يشير إلى ملف api/patient-data.js الذي أنشأته
+        // هذا الرابط يشير إلى ملف api/patient-data.js الذي أنشأته ولا يحتاج لتعديل
         const SEARCH_URL = '/api/patient-data'; 
 
         // العناصر
@@ -107,7 +119,6 @@
 
             // إرسال البيانات إلى Google Apps Script للتحقق
             try {
-                // ملاحظة: قد تحتاج إلى تعديل اسم الـ action بناءً على ما هو موجود في سكريبت جوجل الخاص بك
                 const response = await fetch(`${AUTH_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
                 const data = await response.json();
 
@@ -126,7 +137,7 @@
                     loginMessage.classList.remove('hidden');
                 }
             } catch (error) {
-                loginMessage.textContent = 'فشل الاتصال بخادم المصادقة. تحقق من رابط المصادقة.';
+                loginMessage.textContent = 'https://script.google.com/macros/s/AKfycbxz9VsdF4buz_DFJo_nelzadvIaHUHioJlG8rx3QKFeMDlF6wXE7vqTtZnvP6BauyQU/exec';
                 loginMessage.classList.remove('hidden');
             }
         });
@@ -195,4 +206,3 @@
     </script>
 </body>
 </html>
-
