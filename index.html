@@ -12,7 +12,7 @@
         body {
             font-family: 'Cairo', sans-serif;
             transition: background-color 0.5s ease;
-            /* التعديل هنا: إرجاع لون الخلفية إلى الأزرق الداكن الاحترافي */
+            /* الخلفية الزرقاء */
             background-color: #1976D2; 
         }
         .loader {
@@ -35,58 +35,61 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
 
-    <div id="loginScreen" class="p-8 rounded-lg shadow-xl w-full max-w-sm transform transition duration-500 scale-100">
-        
-        <img src="https://i.postimg.cc/HsrDVPzq/logo.png" alt="United Pharmacy Logo" class="h-16 mx-auto mb-4">
-        
-        <h1 class="text-3xl font-extrabold mb-2 text-center text-indigo-700">United Pharmacy</h1>
-        <h2 class="text-xl font-bold mb-4 text-center text-gray-800">الرجاء إدخال بياناتك للمتابعة</h2>
-        
-        <form id="loginForm">
-            <div class="mb-4">
-                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">اسم المستخدم</label>
-                <input type="text" id="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
-            </div>
-            <div class="mb-6">
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">كلمة المرور</label>
-                <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
-            </div>
-            <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-150">دخول</button>
-            <p id="loginMessage" class="mt-4 text-center text-red-500 hidden text-sm"></p>
-        </form>
-
-        <p class="text-xs text-gray-400 text-center mt-6 border-t pt-2">
-            Created by: <span class="font-large text-red-600">Dr.Abdelrahman Baiomy</span>
-        </p>
+    <div class="fixed top-0 w-full flex flex-col items-center p-4">
+        <img src="https://i.postimg.cc/HsrDVPzq/logo.png" alt="United Pharmacy Logo" class="h-16 mx-auto mb-4 bg-white p-2 rounded-full shadow-lg">
     </div>
 
-    <div id="searchScreen" class="p-8 rounded-lg shadow-xl w-full max-w-lg hidden transform transition duration-500 scale-0">
-        
-        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 border-b pb-2">ادخل رقم الهوية لعرض بيانات المريض</h2>
-        
-        <form id="searchForm" class="mb-6">
-            <div class="flex space-x-3 space-x-reverse">
-                <input type="text" id="patientId" placeholder="أدخل رقم الهوية أو رقم الهاتف" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500" required>
-                <button type="submit" class="bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 transition duration-150 whitespace-nowrap">ابحث</button>
-            </div>
-        </form>
+    <div class="flex flex-col items-center justify-center flex-grow w-full">
+        <div id="loginScreen" class="p-8 rounded-lg shadow-xl w-full max-w-sm transform transition duration-500 scale-100">
+            
+            <h1 class="text-3xl font-extrabold mb-2 text-center text-indigo-700">United Pharmacy</h1>
+            <h2 class="text-xl font-bold mb-4 text-center text-gray-800">الرجاء إدخال بياناتك للمتابعة</h2>
+            
+            <form id="loginForm">
+                <div class="mb-4">
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">اسم المستخدم</label>
+                    <input type="text" id="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">كلمة المرور</label>
+                    <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-150">دخول</button>
+                <p id="loginMessage" class="mt-4 text-center text-red-500 hidden text-sm"></p>
+            </form>
+        </div>
 
-        <div id="resultArea">
-            <div id="loader" class="loader hidden"></div>
-            <p id="errorMessage" class="text-red-600 text-center font-medium hidden"></p>
-            <div id="dataDisplay" class="border border-gray-200 p-4 rounded-lg bg-gray-50 hidden">
-                <p class="text-lg font-bold mb-2 text-gray-700">بيانات المريض:</p>
-                <div class="grid grid-cols-2 gap-3">
-                    <p class="text-gray-600">الاسم:</p> <p id="displayName" class="font-semibold text-gray-800"></p>
-                    <p class="text-gray-600">رقم الهوية:</p> <p id="displayId" class="font-semibold text-gray-800"></p>
-                    <p class="text-gray-600">رقم الهاتف:</p> <p id="displayMobile" class="font-semibold text-gray-800"></p>
+        <div id="searchScreen" class="p-8 rounded-lg shadow-xl w-full max-w-lg hidden transform transition duration-500 scale-0">
+            
+            <h2 class="text-3xl font-extrabold mb-6 text-center text-gray-800 border-b pb-2">ادخل رقم الهوية لعرض بيانات المريض</h2>
+            
+            <form id="searchForm" class="mb-6">
+                <div class="flex space-x-3 space-x-reverse">
+                    <input type="text" id="patientId" placeholder="أدخل رقم الهوية أو رقم الهاتف" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500" required>
+                    <button type="submit" class="bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 transition duration-150 whitespace-nowrap">ابحث</button>
+                </div>
+            </form>
+
+            <div id="resultArea">
+                <div id="loader" class="loader hidden"></div>
+                <p id="errorMessage" class="text-red-600 text-center font-medium hidden"></p>
+                <div id="dataDisplay" class="border border-gray-200 p-4 rounded-lg bg-gray-50 hidden">
+                    <p class="text-lg font-bold mb-2 text-gray-700">بيانات المريض:</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <p class="text-gray-600">الاسم:</p> <p id="displayName" class="font-semibold text-gray-800"></p>
+                        <p class="text-gray-600">رقم الهوية:</p> <p id="displayId" class="font-semibold text-gray-800"></p>
+                        <p class="text-gray-600">رقم الهاتف:</p> <p id="displayMobile" class="font-semibold text-gray-800"></p>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
+    
+    <p class="text-xs text-gray-300 text-center mt-6 p-2">
+        Created by: <span class="font-medium text-white">Dr.Abdelrahman Baiomy</span>
+    </p>
 
     <script>
         // =======================================================
