@@ -1,117 +1,63 @@
-<!--
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>United Pharmacy - بحث عن بيانات مريض</title>
+    <title>نعتذر عن عدم توفر الموقع</title>
+    <!-- تحميل مكتبة Tailwind CSS للستايل الاحترافي -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* تعيين خط Inter كخط أساسي (مناسب للعربية أيضاً) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
-            font-family: 'Cairo', sans-serif;
-            transition: background-color 0.5s ease;
-            /* الخلفية الزرقاء */
-            background-color: #000033; 
+            font-family: 'Inter', sans-serif;
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        /* التأكد من أن صناديق الدخول والبحث (الواجهة) تستخدم خلفية فاتحة */
-        #loginScreen, #searchScreen {
-             background-color: #fff; 
-             border: 1px solid #e0e0e0; 
+        /* خلفية ناعمة لتبدو احترافية */
+        .bg-gradient-soft {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ef 100%);
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
+<body class="bg-gradient-soft min-h-screen flex items-center justify-center p-4">
 
-    <div class="flex flex-col items-center justify-center flex-grow w-full">
-        
-        <div id="loginScreen" class="p-8 rounded-lg shadow-xl w-full max-w-sm transform transition duration-500 scale-100">
-            
-            <img src="https://i.postimg.cc/HsrDVPzq/logo.png" alt="United Pharmacy Logo" class="h-16 mx-auto mb-4">
-            
-            <h1 class="text-3xl font-extrabold mb-2 text-center text-indigo-700">United Pharmacy</h1>
-            <h2 class="text-xl font-bold mb-4 text-center text-gray-800">الرجاء إدخال بياناتك للمتابعة</h2>
-            
-            <form id="loginForm">
-                <div class="mb-4">
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">اسم المستخدم</label>
-                    <input type="text" id="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
-                </div>
-                <div class="mb-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">كلمة المرور</label>
-                    <input type="password" id="password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-150">دخول</button>
-                <p id="loginMessage" class="mt-4 text-center text-red-500 hidden text-sm"></p>
-            </form>
-
-            <p class="text-lg text-red-700 text-center mt-6 font-bold">
-    Created by: <span class="font-extrabold">Dr.Abdelrahman Baiomy</span>
-</p>
-        </div>
-
-        <div id="searchScreen" class="p-8 rounded-lg shadow-xl w-full max-w-lg hidden transform transition duration-500 scale-0">
-            
-            <img src="https://i.postimg.cc/HsrDVPzq/logo.png" alt="United Pharmacy Logo" class="h-16 mx-auto mb-4">
-            
-            <h1 class="text-3xl font-extrabold mb-2 text-center text-indigo-700">United Pharmacy</h1>
-            <h2 class="text-l font-bold mb-4 text-center text-gray-500">ادخل رقم الهوية لعرض بيانات المريض</h2>
-            
-            <form id="searchForm" class="mb-6">
-                <div class="flex space-x-3 space-x-reverse">
-                    <input type="text" id="patientId" placeholder="أدخل رقم الهوية.... " class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500" required>
-                    <button type="submit" class="bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 transition duration-150 whitespace-nowrap">ابحث</button>
-                </div>
-            </form>
-
-            <div id="resultArea">
-                <div id="loader" class="loader hidden"></div>
-                <p id="errorMessage" class="text-red-600 text-center font-medium hidden"></p>
-                <div id="dataDisplay" class="border border-gray-200 p-4 rounded-lg bg-gray-50 hidden">
-                    <p class="text-lg font-bold mb-2 text-gray-700">بيانات المريض:</p>
-                    <div class="grid grid-cols-2 gap-3">
-                        <p class="text-gray-600">الاسم:</p> <p id="displayName" class="font-semibold text-gray-800"></p>
-                        <p class="text-gray-600">رقم الهوية:</p> <p id="displayId" class="font-semibold text-gray-800"></p>
-                        <p class="text-gray-600">رقم الهاتف:</p> <p id="displayMobile" class="font-semibold text-gray-800"></p>
-                    </div>
-                </div>
-            </div>
-
-            <p class="text-lg text-red-700 text-center mt-6 font-bold">
-    Created by: <span class="font-extrabold">Dr.Abdelrahman Baiomy</span>
-</p>
-        </div>
-    </div>
     
-    <script>
-        // =======================================================
-        // الروابط الجديدة للخدمات
-        // =======================================================
-        // 1. رابط المصادقة (Google Apps Script الأصلي)
-        // **يجب استبدال النص بالرابط الفعال الخاص بك للمصادقة**
-        const _0x47ead5=_0xccba;function _0xccba(_0x50262b,_0x94dbac){const _0x4be465=_0x4be4();return _0xccba=function(_0xccba59,_0x32673f){_0xccba59=_0xccba59-0xb3;let _0x3c7f54=_0x4be465[_0xccba59];return _0x3c7f54;},_0xccba(_0x50262b,_0x94dbac);}(function(_0x523e53,_0x341ffe){const _0x3fb208=_0xccba,_0x3f6ac5=_0x523e53();while(!![]){try{const _0x4c6416=-parseInt(_0x3fb208(0xc8))/0x1+parseInt(_0x3fb208(0xc4))/0x2*(-parseInt(_0x3fb208(0xd2))/0x3)+parseInt(_0x3fb208(0xb9))/0x4+-parseInt(_0x3fb208(0xbb))/0x5+parseInt(_0x3fb208(0xc9))/0x6*(-parseInt(_0x3fb208(0xd9))/0x7)+-parseInt(_0x3fb208(0xd7))/0x8+-parseInt(_0x3fb208(0xb4))/0x9*(-parseInt(_0x3fb208(0xd0))/0xa);if(_0x4c6416===_0x341ffe)break;else _0x3f6ac5['push'](_0x3f6ac5['shift']());}catch(_0xc0c420){_0x3f6ac5['push'](_0x3f6ac5['shift']());}}}(_0x4be4,0x729ef));const AUTH_URL=_0x47ead5(0xd5),SEARCH_URL='/api/patient-data',loginScreen=document[_0x47ead5(0xd3)](_0x47ead5(0xe3)),searchScreen=document[_0x47ead5(0xd3)](_0x47ead5(0xe2)),loginForm=document[_0x47ead5(0xd3)](_0x47ead5(0xca)),searchForm=document[_0x47ead5(0xd3)](_0x47ead5(0xc5)),loginMessage=document['getElementById'](_0x47ead5(0xdc)),patientIdInput=document['getElementById'](_0x47ead5(0xb6)),loader=document[_0x47ead5(0xd3)](_0x47ead5(0xc1)),errorMessage=document[_0x47ead5(0xd3)](_0x47ead5(0xd8)),dataDisplay=document[_0x47ead5(0xd3)](_0x47ead5(0xcd)),displayName=document['getElementById']('displayName'),displayId=document['getElementById']('displayId'),displayMobile=document[_0x47ead5(0xd3)]('displayMobile');function _0x4be4(){const _0x598fdc=['searchScreen','loginScreen','?id=','11296107aEyGfa','&password=','patientId','classList','scale-0','362156TUdBqt','scale-100','3546870NRupzB','remove','textContent','password','success','فشل\x20الاتصال\x20بخادم\x20المصادقة.\x20تحقق\x20من\x20رابط\x20المصادقة.','loader','message','فشل\x20في\x20جلب\x20البيانات:\x20','2WwQtJe','searchForm','mobile','trim','871461yLFujq','5676tfmgTH','loginForm','preventDefault','رقم\x20الهوية\x20غير\x20موجود.','dataDisplay','json','value','30EKCJaw','catch','885576PBRRKk','getElementById','data','https://script.google.com/macros/s/AKfycbxz9VsdF4buz_DFJo_nelzadvIaHUHioJlG8rx3QKFeMDlF6wXE7vqTtZnvP6BauyQU/exec','submit','7330448iDDIkd','errorMessage','4396jvtVbi','hidden','خطأ\x20في\x20اسم\x20المستخدم\x20أو\x20كلمة\x20المرور.','loginMessage','addEventListener','then','status','add','username'];_0x4be4=function(){return _0x598fdc;};return _0x4be4();}loginForm['addEventListener']('submit',async _0x54637e=>{const _0x5dfab3=_0x47ead5;_0x54637e[_0x5dfab3(0xcb)](),loginMessage['classList'][_0x5dfab3(0xe0)](_0x5dfab3(0xda));const _0xdd138d=document['getElementById'](_0x5dfab3(0xe1))['value'],_0x40cbc0=document[_0x5dfab3(0xd3)](_0x5dfab3(0xbe))[_0x5dfab3(0xcf)];try{const _0x2fb27e=await fetch(AUTH_URL+'?action=login&username='+encodeURIComponent(_0xdd138d)+_0x5dfab3(0xb5)+encodeURIComponent(_0x40cbc0)),_0x18492e=await _0x2fb27e[_0x5dfab3(0xce)]();_0x18492e[_0x5dfab3(0xdf)]==='success'?(loginScreen['classList'][_0x5dfab3(0xbc)](_0x5dfab3(0xba)),loginScreen[_0x5dfab3(0xb7)][_0x5dfab3(0xe0)](_0x5dfab3(0xb8)),setTimeout(()=>{const _0x244940=_0x5dfab3;loginScreen['classList']['add'](_0x244940(0xda)),searchScreen[_0x244940(0xb7)][_0x244940(0xbc)](_0x244940(0xda)),searchScreen[_0x244940(0xb7)][_0x244940(0xbc)](_0x244940(0xb8)),searchScreen[_0x244940(0xb7)]['add'](_0x244940(0xba));},0x1f4)):(loginMessage[_0x5dfab3(0xbd)]=_0x18492e['message']||_0x5dfab3(0xdb),loginMessage[_0x5dfab3(0xb7)][_0x5dfab3(0xbc)](_0x5dfab3(0xda)));}catch(_0x4d1f35){loginMessage['textContent']=_0x5dfab3(0xc0),loginMessage[_0x5dfab3(0xb7)][_0x5dfab3(0xbc)](_0x5dfab3(0xda));}}),searchForm[_0x47ead5(0xdd)](_0x47ead5(0xd6),_0x45261a=>{const _0x40b9fc=_0x47ead5;_0x45261a['preventDefault']();const _0x59af19=patientIdInput['value'][_0x40b9fc(0xc7)]();_0x59af19&&searchData(_0x59af19);});function searchData(_0x4bcdf8){const _0x4a32bf=_0x47ead5;showLoading(!![]),fetch(SEARCH_URL+_0x4a32bf(0xb3)+encodeURIComponent(_0x4bcdf8))[_0x4a32bf(0xde)](_0xdbc045=>_0xdbc045['json']())['then'](_0x56b45e=>{const _0x4aebb0=_0x4a32bf;showLoading(![]);if(_0x56b45e['status']===_0x4aebb0(0xbf))displayData(_0x56b45e[_0x4aebb0(0xd4)]);else _0x56b45e[_0x4aebb0(0xdf)]==='not_found'?showError(_0x4aebb0(0xcc)):showError(_0x56b45e[_0x4aebb0(0xc2)]||'حدث\x20خطأ\x20غير\x20متوقع\x20في\x20الخادم.');})[_0x4a32bf(0xd1)](_0x13541a=>{const _0x47d534=_0x4a32bf;showLoading(![]),showError(_0x47d534(0xc3)+_0x13541a[_0x47d534(0xc2)]);});}function showLoading(_0x5d2589){const _0x71a40f=_0x47ead5;resetState(),_0x5d2589?loader[_0x71a40f(0xb7)]['remove']('hidden'):loader[_0x71a40f(0xb7)]['add'](_0x71a40f(0xda));}function showError(_0x2415a2){const _0x4e9974=_0x47ead5;resetState(),errorMessage[_0x4e9974(0xbd)]=_0x2415a2,errorMessage[_0x4e9974(0xb7)][_0x4e9974(0xbc)]('hidden');}function displayData(_0x902399){const _0x275c18=_0x47ead5;resetState(),displayName['textContent']=_0x902399['name'],displayId['textContent']=_0x902399['id'],displayMobile[_0x275c18(0xbd)]=_0x902399[_0x275c18(0xc6)],dataDisplay[_0x275c18(0xb7)][_0x275c18(0xbc)](_0x275c18(0xda));}function resetState(){const _0x3ff7c9=_0x47ead5;loader[_0x3ff7c9(0xb7)][_0x3ff7c9(0xe0)](_0x3ff7c9(0xda)),errorMessage['classList'][_0x3ff7c9(0xe0)](_0x3ff7c9(0xda)),dataDisplay[_0x3ff7c9(0xb7)]['add']('hidden');}
-    </script>
+    <div class="max-w-xl w-full bg-white shadow-2xl rounded-xl p-8 md:p-12 text-center transform transition duration-500 hover:scale-[1.02]">
+        
+        
+        <svg class="w-16 h-16 mx-auto text-red-600 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 105.636 5.636m12.728 12.728L5.636 5.636"></path>
+        </svg>
+
+        
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-snug">
+            نعتذر عن عدم توفر الموقع
+        </h1>
+
+        
+        <p class="text-xl text-gray-600 mb-8">
+            الموقع قيد الصيانة أو التحديث حالياً وسيعود للعمل قريباً. نشكر تفهمكم.
+        </p>
+
+        
+        <div class="p-6 bg-blue-50 border border-blue-200 rounded-lg">
+            <p class="text-lg font-semibold text-blue-700 mb-3">
+                الرجاء التواصل مع المطور لأي استفسار:
+            </p>
+            
+            
+            <a href="mailto:dr.a.baiomy22@gmail.com" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-md text-white bg-blue-600 hover:bg-blue-900 transition duration-150 ease-in-out hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                dr.a.baiomy22@gmail.com
+            </a>
+        </div>
+        
+        
+        <p class="mt-8 text-sm text-gray-400">
+            &copy; copyright 2025
+        </p>
+    </div>
+
 </body>
 </html>
-
--->
-
-
-
-
-
